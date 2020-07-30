@@ -1,4 +1,7 @@
-from tkinter import *
+from tkinter import Frame
+from tkinter import Label
+from tkinter import Button
+from tkinter.constants import BOTH, BOTTOM, X, LEFT
 
 class ConwayFrame(Frame):
     
@@ -12,9 +15,9 @@ class ConwayFrame(Frame):
         info_frame = self.create_info_frame()
         action_frame = self.create_actions_frame()
 
-        canvas_frame.pack(fill="x")
-        action_frame.pack(fill="x", side = BOTTOM)
-        info_frame.pack(fill="x", side = BOTTOM )
+        canvas_frame.pack(fill=BOTH, expand=True)
+        action_frame.pack(fill=X, side=BOTTOM)
+        info_frame.pack(fill=X, side=BOTTOM )
         
         self.pack()
         
