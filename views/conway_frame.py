@@ -5,12 +5,11 @@ from tkinter.constants import BOTH, BOTTOM, X, LEFT
 
 class ConwayFrame(Frame):
     
-    def __init__(self, root):
-        self.__root = root
-        super().__init__(root)
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.initialize()
 
     def initialize(self):
-        
         canvas_frame = self.create_canvas_frame()
         info_frame = self.create_info_frame()
         action_frame = self.create_actions_frame()
@@ -19,15 +18,14 @@ class ConwayFrame(Frame):
         action_frame.pack(fill=X, side=BOTTOM)
         info_frame.pack(fill=X, side=BOTTOM )
         
-        self.pack()
-        
+        self.pack(fill=BOTH, expand=True)
 
     def create_canvas_frame(self):
-        canvas_frame = Frame(self.__root, bg="red")
+        canvas_frame = Frame(self, bg="red")
         return canvas_frame
 
     def create_info_frame(self):
-        info_frame = Frame(self.__root, bg="#17212B")
+        info_frame = Frame(self, bg="#17212B")
 
         center_frame = Frame(info_frame, bg="#17212B")
 
@@ -44,8 +42,7 @@ class ConwayFrame(Frame):
         return info_frame
 
     def create_actions_frame(self):
-        
-        actions_frame = Frame(self.__root, bg="#17212B")
+        actions_frame = Frame(self, bg="#17212B")
 
         actions_secondary_frame = self.create_secondary_actions_frame(actions_frame)
         actions_secondary_frame.pack(side = LEFT)
