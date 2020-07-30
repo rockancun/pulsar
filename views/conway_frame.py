@@ -1,12 +1,13 @@
 from tkinter import Frame
 from tkinter import Label
 from tkinter import Button
-from tkinter.constants import BOTH, BOTTOM, X, LEFT
+from views.board import Board
+from tkinter.constants import BOTH, BOTTOM, X, LEFT, CENTER, TRUE
 
 class ConwayFrame(Frame):
     
     def __init__(self, parent):
-        super().__init__(parent)
+        super().__init__(parent, bg="#0E1621")
         self.initialize()
 
     def initialize(self):
@@ -14,14 +15,18 @@ class ConwayFrame(Frame):
         info_frame = self.create_info_frame()
         action_frame = self.create_actions_frame()
 
-        canvas_frame.pack(fill=BOTH, expand=True)
+        canvas_frame.pack(fill=X, expand=TRUE)
         action_frame.pack(fill=X, side=BOTTOM)
         info_frame.pack(fill=X, side=BOTTOM )
         
-        self.pack(fill=BOTH, expand=True)
+        self.pack(fill=BOTH, expand=TRUE)
 
     def create_canvas_frame(self):
-        canvas_frame = Frame(self, bg="red")
+        canvas_frame = Frame(self, bg="#0E1621")
+        data = {'width':100, 'height':100}
+        canvas = Board(canvas_frame, data, bg="#2B5278", highlightthickness=0)
+        canvas.place(relx=0.5, rely=0.5, anchor=CENTER)
+        canvas.pack()
         return canvas_frame
 
     def create_info_frame(self):
