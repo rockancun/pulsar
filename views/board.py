@@ -9,7 +9,31 @@ class Board(Canvas):
         self.bind( "<Button-1>", self.paint )
         self.draw_canvas()
         self.draw_grid()
+        self.print_cells()
+        
+    def print_cells(self):
+        for row in range(len(self.__matrix)):
+            for column in range(len(self.__matrix)):
+                self.print_live_or_dead_cell(row, column)
 
+    def print_live_or_dead_cell(self, row, column):
+        if self.__matrix[column][row] == 0:
+            self.print_dead_cell(row, column)
+            return
+        self.print_live_cell(row, column)
+
+    def print_live_cell(self, x, y):
+        self.print_cell(x, y, '#2B5278')
+
+    def print_dead_cell(self, x, y):
+        self.print_cell(x, y, '#242F3D')
+
+    def print_cell(self, x, y, color='black'):
+        origin_x = x * self.__zoom + x
+        origin_y = y * self.__zoom + y
+        destiny_x = origin_x + self.__zoom - 1
+        destiny_y = origin_y + self.__zoom - 1
+        self.create_rectangle(origin_x, origin_y, destiny_x, destiny_y, fill=color, width=0)
 
     def draw_canvas(self):
         canvas_size = self.calculate_canvas_pixels()
