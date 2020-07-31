@@ -24,8 +24,8 @@ class ConwayFrame(Frame):
 
     def create_canvas_frame(self):
         canvas_frame = Frame(self, bg="#0E1621")
-        data = {'width':100, 'height':100}
-        canvas = Board(canvas_frame, data, bg="#2B5278")
+        matrix = [[0 for x in range(20)] for y in range(20)] 
+        canvas = Board(canvas_frame, matrix, bg="#242F3D")
         canvas.place(relx=0.5, rely=0.5, anchor=CENTER)
         canvas.pack()
         return canvas_frame
