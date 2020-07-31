@@ -1,6 +1,7 @@
 from tkinter import Frame
 from tkinter import Label
 from tkinter import Button
+from tkinter import PhotoImage
 from views.board import Board
 from tkinter.constants import BOTH, BOTTOM, X, LEFT, CENTER, TRUE
 
@@ -24,7 +25,7 @@ class ConwayFrame(Frame):
     def create_canvas_frame(self):
         canvas_frame = Frame(self, bg="#0E1621")
         data = {'width':100, 'height':100}
-        canvas = Board(canvas_frame, data, bg="#2B5278", highlightthickness=0)
+        canvas = Board(canvas_frame, data, bg="#2B5278")
         canvas.place(relx=0.5, rely=0.5, anchor=CENTER)
         canvas.pack()
         return canvas_frame
@@ -60,9 +61,17 @@ class ConwayFrame(Frame):
     def create_secondary_actions_frame(self, parent_frame):
         secondary_actions_frame = Frame(parent_frame, bg="#17212B")
         
-        random_button = Button(secondary_actions_frame, text="Random", bg="#17212B", fg="#6C7883", command=self.action)
-        grid_button = Button(secondary_actions_frame, text="Grid", bg="#17212B", fg="#6C7883", command=self.action)
-        photo_button = Button(secondary_actions_frame, text="Photo", bg="#17212B", fg="#6C7883", command=self.action)
+        photo_random = PhotoImage(file="resources/random.png")
+        random_button = Button(secondary_actions_frame, text="Random", image=photo_random, fg="#6C7883", command=self.action)
+        random_button.image = photo_random
+
+        photo_grid = PhotoImage(file="resources/grid.png")
+        grid_button = Button(secondary_actions_frame, text="Grid", image=photo_grid, fg="#6C7883", command=self.action)
+        grid_button.image = photo_grid
+
+        photo_photo = PhotoImage(file="resources/photo.png")
+        photo_button = Button(secondary_actions_frame, text="Photo", image=photo_photo, fg="#6C7883", command=self.action)
+        photo_button.image = photo_photo
 
         random_button.grid(row=0, column=1, padx=10, pady=10)
         grid_button.grid(row=0, column=2, padx=10, pady=10)
@@ -73,10 +82,21 @@ class ConwayFrame(Frame):
     def create_primary_actions_frame(self, parent_frame):
         primary_actions= Frame(parent_frame, bg="#17212B")
 
-        stop_button = Button(primary_actions, text="Stop", bg="#17212B", fg="#6C7883", command=self.action)
-        speed_up_button = Button(primary_actions, text="Speed Up", bg="#17212B", fg="#6C7883", command=self.action)
-        play_button = Button(primary_actions, text="Play", bg="#17212B", fg="#6C7883", command=self.action)
-        speed_down = Button(primary_actions, text="Speed Down", bg="#17212B", fg="#6C7883", command=self.action)
+        photo_stop = PhotoImage(file="resources/stop.png")
+        stop_button = Button(primary_actions, text="Stop", image=photo_stop, fg="#6C7883", command=self.action)
+        stop_button.image = photo_stop
+
+        photo_speed_up = PhotoImage(file="resources/speed_up.png")
+        speed_up_button = Button(primary_actions, text="Speed Up", image=photo_speed_up, fg="#6C7883", command=self.action)
+        speed_up_button.image = photo_speed_up
+
+        photo_play = PhotoImage(file="resources/play.png")
+        play_button = Button(primary_actions, text="Play", image=photo_play, fg="#6C7883", command=self.action)
+        play_button.image = photo_play
+
+        photo_speed_down = PhotoImage(file="resources/speed_down.png")
+        speed_down = Button(primary_actions, text="Speed Down", image=photo_speed_down, fg="#6C7883", command=self.action)
+        speed_down.image = photo_speed_down
 
 
         stop_button.grid(row=0, column=1, padx=10, pady=10)
