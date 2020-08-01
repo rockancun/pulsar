@@ -4,7 +4,7 @@ class Board(Canvas):
 
     def __init__(self, parent, matrix, **kargs):
         self.__matrix = matrix
-        self.__zoom = 4
+        self.__zoom = 20
         self.__observer = None
         super().__init__(parent, width=1, height=1, highlightthickness=0, **kargs)
         self.bind( "<Button-1>", self.paint )
@@ -13,15 +13,15 @@ class Board(Canvas):
         self.print_cells()
         
     def print_cells(self):
-        for row in range(len(self.__matrix)):
-            for column in range(len(self.__matrix)):
-                self.print_live_or_dead_cell(row, column)
+        for column in range(len(self.__matrix)):
+            for row in range(len(self.__matrix)):
+                self.print_live_or_dead_cell(column, row)
 
-    def print_live_or_dead_cell(self, row, column):
+    def print_live_or_dead_cell(self, column, row):
         if self.__matrix[column][row] == 0:
-            self.print_dead_cell(row, column)
+            self.print_dead_cell(column, row )
             return
-        self.print_live_cell(row, column)
+        self.print_live_cell(column, row)
 
     def print_live_cell(self, x, y):
         self.print_cell(x, y, '#2B5278')
@@ -85,7 +85,7 @@ class Board(Canvas):
 
 
         if(self.__observer):
-            self.__observer(cell_index_y, cell_index_x)
+            self.__observer(cell_index_x, cell_index_y)
 
     def calculate_cell_index(self, pixel):
         grid_pixels_to_discount = pixel // (self.__zoom + 1)

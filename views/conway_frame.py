@@ -10,7 +10,7 @@ class ConwayFrame(Frame):
     
     def __init__(self, parent):
         super().__init__(parent, bg="#0E1621")
-        self.__matrix = [[(randrange(0, 2)) for x in range(100)] for y in range(100)]
+        self.__matrix = [[0 for x in range(10)] for y in range(10)]
 
         self.initialize()
 
