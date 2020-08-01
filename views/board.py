@@ -4,7 +4,8 @@ class Board(Canvas):
 
     def __init__(self, parent, matrix, **kargs):
         self.__matrix = matrix
-        self.__zoom = 10
+        self.__zoom = 4
+        self.__observer = None
         super().__init__(parent, width=1, height=1, highlightthickness=0, **kargs)
         self.bind( "<Button-1>", self.paint )
         self.draw_canvas()
@@ -34,6 +35,10 @@ class Board(Canvas):
         destiny_x = origin_x + self.__zoom - 1
         destiny_y = origin_y + self.__zoom - 1
         self.create_rectangle(origin_x, origin_y, destiny_x, destiny_y, fill=color, width=0)
+
+    def update_matrix(self, matrix):
+        self.__matrix = matrix
+        self.print_cells()
 
     def draw_canvas(self):
         canvas_size = self.calculate_canvas_pixels()
@@ -67,10 +72,24 @@ class Board(Canvas):
         return len(self.__matrix) * self.__zoom
 
     def register_touch_cell_observer(self, observer):
-        pass
+        self.__observer = observer
 
     def paint(self, event):
-        python_green = "#476042"
-        x1, y1 = (event.x - 1), (event.y - 1)
-        x2, y2 = (event.x + 1), (event.y + 1)
-        self.create_oval( x1, y1, x2, y2, fill = python_green )
+        x, y = (event.x - 1), (event.y - 1)
+
+        cell_index_x = self.calculate_cell_index(x)
+        cell_index_y = self.calculate_cell_index(y)
+
+        print("x, %s" % cell_index_x)
+        print("y, %s" % cell_index_y)
+
+
+        if(self.__observer):
+            self.__observer(cell_index_y, cell_index_x)
+
+    def calculate_cell_index(self, pixel):
+        grid_pixels_to_discount = pixel // (self.__zoom + 1)
+        pixels_without_grid_pixel = pixel - grid_pixels_to_discount
+        return pixels_without_grid_pixel // self.__zoom
+
+
