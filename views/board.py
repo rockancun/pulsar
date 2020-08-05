@@ -3,13 +3,20 @@ from tkinter import Canvas
 
 class Board(Canvas):
 
-    def __init__(self, parent, matrix, **kargs):
-        self.__matrix = matrix
+    def __init__(self, parent, **kargs):
+        self.__matrix = self.__matrix = [[0 for x in range(0)] for y in range(0)]
+
         self.__zoom = 20
         self.__observer = None
         super().__init__(parent, width=1, height=1,
                          highlightthickness=0, **kargs)
         self.bind("<Button-1>", self.paint)
+        self.draw_canvas()
+        self.draw_grid()
+        self.print_cells()
+
+    def update_matrix(self, matrix):
+        self.__matrix = matrix
         self.draw_canvas()
         self.draw_grid()
         self.print_cells()
@@ -21,6 +28,7 @@ class Board(Canvas):
                 self.print_live_or_dead_cell(column, row)
 
     def print_live_or_dead_cell(self, column, row):
+
         if self.__matrix[column][row] == 0:
             self.print_dead_cell(column, row)
             return
@@ -39,10 +47,6 @@ class Board(Canvas):
         destiny_y = origin_y + self.__zoom - 1
         self.create_rectangle(origin_x, origin_y, destiny_x,
                               destiny_y, fill=color, width=0)
-
-    def update_matrix(self, matrix):
-        self.__matrix = matrix
-        self.print_cells()
 
     def draw_canvas(self):
         canvas_size = self.calculate_canvas_pixels()
