@@ -33,10 +33,8 @@ class ConwayFrame(Frame):
         return canvas_frame
 
     def touch_event_hadler(self, cell_index_x, cell_index_y):
-        #cell = self.__model.get_matrix()[cell_index_x][cell_index_y]
-        #self.__model.get_matrix()[cell_index_x][cell_index_y] = 1 if cell == 0 else 0
-        #self.__board.update_matrix(self.__model.get_matrix())
-        print(f"x: {cell_index_x}, y: {cell_index_y}")
+        self.action(name="CELL_CHANGE", cell_index_x=cell_index_x,
+                    cell_index_y=cell_index_y)
 
     def update_model(self, model):
         self.__model = model
@@ -45,8 +43,8 @@ class ConwayFrame(Frame):
     def set_controller(self, controller):
         self.__controller = controller
 
-    def action(self, name):
-        self.__controller.action(name)
+    def action(self, **event):
+        self.__controller.action(**event)
 
     def create_info_frame(self):
         info_frame = Frame(self, bg="#17212B")
@@ -110,7 +108,7 @@ class ConwayFrame(Frame):
             text="Random",
             image=image,
             fg="#6C7883",
-            command=lambda: self.action('RANDOM'))
+            command=lambda: self.action(name='RANDOM'))
         button.image = image
         return button
 
@@ -121,7 +119,7 @@ class ConwayFrame(Frame):
             text="Grid",
             image=image,
             fg="#6C7883",
-            command=lambda: self.action('SHOW_GRID'))
+            command=lambda: self.action(name='SHOW_GRID'))
         grid_button.image = image
         return grid_button
 
@@ -132,7 +130,7 @@ class ConwayFrame(Frame):
             text="Photo",
             image=photo,
             fg="#6C7883",
-            command=lambda: self.action('PHOTO'))
+            command=lambda: self.action(name='PHOTO'))
         button.image = photo
         return button
 
@@ -156,7 +154,7 @@ class ConwayFrame(Frame):
                         text="Stop",
                         image=photo,
                         fg="#6C7883",
-                        command=lambda: self.action('STOP'))
+                        command=lambda: self.action(name='STOP'))
         button.image = photo
         return button
 
@@ -166,7 +164,7 @@ class ConwayFrame(Frame):
                         text="Speed Up",
                         image=photo,
                         fg="#6C7883",
-                        command=lambda: self.action('SPEED_UP'))
+                        command=lambda: self.action(name='SPEED_UP'))
         button.image = photo
         return button
 
@@ -176,7 +174,7 @@ class ConwayFrame(Frame):
                         text="Play",
                         image=photo,
                         fg="#6C7883",
-                        command=lambda: self.action('PLAY'))
+                        command=lambda: self.action(name='PLAY'))
         button.image = photo
         return button
 
@@ -186,6 +184,6 @@ class ConwayFrame(Frame):
                         text="Speed Down",
                         image=photo,
                         fg="#6C7883",
-                        command=lambda: self.action('SPEED_DOWN'))
+                        command=lambda: self.action(name='SPEED_DOWN'))
         button.image = photo
         return button
