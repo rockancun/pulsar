@@ -4,9 +4,9 @@ from tkinter import Canvas
 class Board(Canvas):
 
     def __init__(self, parent, **kargs):
-        self.__matrix = self.__matrix = [[0 for x in range(0)] for y in range(0)]
+        self.__matrix = [[0 for x in range(0)] for y in range(0)]
 
-        self.__zoom = 20
+        self.__zoom = 10
         self.__observer = None
         super().__init__(parent, width=1, height=1,
                          highlightthickness=0, **kargs)
