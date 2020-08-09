@@ -1,3 +1,7 @@
+from models.timer import Timer
+from datetime import datetime
+
+
 class Controller(object):
 
     def __init__(self, view, model):
@@ -5,13 +9,25 @@ class Controller(object):
         self.__model = model
         self.__view.set_controller(self)
         self.__view.update_model(self.__model)
+        self.__timer = Timer(self.tictac)
+
+    def tictac(self):
+        self.next_generation()
+
+    def __start_play(self):
+        self.__timer.start()
+
+    def __stop_play(self):
+        self.__timer.stop()
 
     def action(self, **event):
         name = event['name']
         if name == 'CELL_CHANGE':
             self.update_cell(event)
         elif name == 'PLAY':
-            self.next_generation()
+            self.__start_play()
+        elif name == 'STOP':
+            self.__stop_play()
         else:
             pass
 
@@ -20,5 +36,9 @@ class Controller(object):
         self.__view.update_model(self.__model)
 
     def next_generation(self):
+        print(datetime.now())
         self.__model.next_genetration()
+        print(datetime.now())
         self.__view.update_model(self.__model)
+        print(datetime.now())
+        print("-----")
