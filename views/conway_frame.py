@@ -28,7 +28,7 @@ class ConwayFrame(Frame):
     def create_canvas_frame(self):
         canvas_frame = Frame(self, bg="#0E1621")
 
-        self.__board = Board(canvas_frame, bg="#242F3D")
+        self.__board = Board(canvas_frame, bg="red")
         self.__board.register_touch_cell_observer(self.touch_event_hadler)
         self.__board.place(relx=0.5, rely=0.5, anchor=CENTER)
         self.__board.pack()
