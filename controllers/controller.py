@@ -8,7 +8,7 @@ class Controller(object):
         self.__view.set_controller(self)
         self.__view.update_model(self.__model)
         self._job = None
-        self.__speeds = (2000, 1000, 500, 250, 125, 50, 10, 1)
+        self.__speeds = (1000, 500, 250, 125, 50, 10, 1)
         self.__current_speed = 0
         self.seconds = self.__speeds[self.__current_speed]
 
@@ -47,7 +47,7 @@ class Controller(object):
         self.__view.set_alive_cells(self.__model.get_alive_cells_count())
 
     def increments_speed(self):
-        if(self.__current_speed >= 7):
+        if(self.__current_speed >= len(self.__speeds) - 1):
             return
         self.__current_speed = self.__current_speed + 1
         self.seconds = self.__speeds[self.__current_speed]
