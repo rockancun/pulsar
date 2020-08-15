@@ -15,7 +15,7 @@ class Board(Canvas):
         self.__parent = parent
         super().__init__(parent, width=1, height=1,
                          highlightthickness=0, **kargs)
-        fig = Figure(figsize=(5, 5), dpi=100)
+        fig = Figure()
         plot = fig.add_subplot(111)
 
         plot.imshow(self.__matrix, interpolation='nearest', cmap=cm.Greys_r)

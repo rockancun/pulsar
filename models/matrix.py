@@ -50,3 +50,6 @@ class Matrix():
         count += self.__matrix[x][y+1]
         count += self.__matrix[x+1][y+1]
         return count
+
+    def get_alive_cells_count(self):
+        return np.count_nonzero(self.__matrix)

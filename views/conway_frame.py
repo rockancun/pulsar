@@ -4,7 +4,7 @@ from tkinter import Button
 from tkinter import PhotoImage
 from views.plot_board import Board
 from tkinter.constants import BOTH, BOTTOM, X, LEFT, CENTER, TRUE
-
+from tkinter import StringVar
 
 class ConwayFrame(Frame):
 
@@ -43,9 +43,6 @@ class ConwayFrame(Frame):
     def set_controller(self, controller):
         self.__controller = controller
 
-    def action(self, **event):
-        self.__controller.action(**event)
-
     def create_info_frame(self):
         info_frame = Frame(self, bg="#17212B")
 
@@ -57,17 +54,23 @@ class ConwayFrame(Frame):
             fg="white",
             text='Generation:')
 
+        self.__cell_alive_count_text = StringVar()
+        self.__cell_alive_count_text.set('Alive cells: 0')
+
         life_death_label = Label(
             center_frame,
             bg="#17212B",
             fg="white",
-            text='Live: 0 - Dead: 0')
+            textvariable=self.__cell_alive_count_text)
+
+        self.__speed_text = StringVar()
+        self.__speed_text.set('Speed: 1x')
 
         speed_label = Label(
             center_frame,
             bg="#17212B",
             fg="white",
-            text='Speed: 1x')
+            textvariable=self.__speed_text)
 
         generation_label.grid(row=0, column=0, padx=10, pady=10)
         life_death_label.grid(row=0, column=1, padx=10, pady=10)
@@ -187,3 +190,12 @@ class ConwayFrame(Frame):
                         command=lambda: self.action(name='SPEED_DOWN'))
         button.image = photo
         return button
+
+    def action(self, **event):
+        self.__controller.action(**event)
+
+    def set_speed(self, speed):
+        self.__speed_text.set(f"Speed {speed}X")
+
+    def set_alive_cells(self, cells):
+        self.__cell_alive_count_text.set(f'Alive cells: {cells}')
