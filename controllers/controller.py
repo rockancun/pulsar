@@ -25,6 +25,8 @@ class Controller(object):
             self.__increments_speed()
         elif name == 'SPEED_DOWN':
             self.__decrements_speed()
+        elif name == 'RANDOM':
+            self.__random()
         else:
             pass
 
@@ -70,3 +72,8 @@ class Controller(object):
 
     def __increments_generation(self):
         self.__generation = self.__generation + 1
+
+    def __random(self):
+        self.__model.set_random_matrix()
+        self.__view.update_model(self.__model)
+        self.__view.set_alive_cells(self.__model.get_alive_cells_count())

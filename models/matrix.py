@@ -42,6 +42,22 @@ class Matrix():
                     temp_matrix[x][y] = 0
         self.__matrix = temp_matrix
 
+    def set_random_matrix(self):
+        size_with_border = self.__get_size_with_border()
+        self.__matrix = np.random.randint(2, size=(size_with_border, size_with_border))
+        self.__clear_border(size_with_border)
+
+    def __clear_border(self, size_with_border):
+        border_index = size_with_border - 1
+
+        for y in range(0, border_index):
+            self.__matrix[0][y] = 0
+            self.__matrix[border_index][y] = 0
+
+        for x in range(0, border_index):
+            self.__matrix[x][0] = 0
+            self.__matrix[x][border_index] = 0
+
     def __count_neighborhood(self, x, y):
         count = 0
         count += self.__matrix[x-1][y-1]
