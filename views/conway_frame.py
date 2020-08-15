@@ -6,6 +6,7 @@ from views.plot_board import Board
 from tkinter.constants import BOTH, BOTTOM, X, LEFT, CENTER, TRUE
 from tkinter import StringVar
 
+
 class ConwayFrame(Frame):
 
     def __init__(self, parent):
@@ -22,6 +23,7 @@ class ConwayFrame(Frame):
         info_frame.pack(fill=X, side=BOTTOM)
 
         self.pack(fill=BOTH, expand=TRUE)
+        self.__is_playing = False
 
     def create_canvas_frame(self):
         canvas_frame = Frame(self, bg="#0E1621")
@@ -139,27 +141,15 @@ class ConwayFrame(Frame):
 
     def create_primary_actions_frame(self, parent_frame):
         frame = Frame(parent_frame, bg="#17212B")
-        stop_button = self.create_stop_button(frame)
         speed_up_button = self.create_speed_button_up(frame)
-        play_button = self.create_play_button(frame)
+        self.__play_button = self.create_play_button(frame)
         speed_down_button = self.create_speed_down_button(frame)
 
-        stop_button.grid(row=0, column=1, padx=10, pady=10)
         speed_up_button.grid(row=0, column=2, padx=10, pady=10)
-        play_button.grid(row=0, column=3, padx=10, pady=10)
+        self.__play_button.grid(row=0, column=3, padx=10, pady=10)
         speed_down_button.grid(row=0, column=4, padx=10, pady=10)
 
         return frame
-
-    def create_stop_button(self, parent_frame):
-        photo = PhotoImage(file="resources/stop.png")
-        button = Button(parent_frame,
-                        text="Stop",
-                        image=photo,
-                        fg="#6C7883",
-                        command=lambda: self.action(name='STOP'))
-        button.image = photo
-        return button
 
     def create_speed_button_up(self, parent_frame):
         photo = PhotoImage(file="resources/speed_up.png")
@@ -177,7 +167,7 @@ class ConwayFrame(Frame):
                         text="Play",
                         image=photo,
                         fg="#6C7883",
-                        command=lambda: self.action(name='PLAY'))
+                        command=lambda: self.play_action())
         button.image = photo
         return button
 
@@ -199,3 +189,20 @@ class ConwayFrame(Frame):
 
     def set_alive_cells(self, cells):
         self.__cell_alive_count_text.set(f'Alive cells: {cells}')
+
+    def play_action(self):
+        if self.__is_playing:
+            self.action(name='STOP')
+            self.change_playing_status()
+            photo = PhotoImage(file="resources/play.png")
+            self.__play_button.configure(image=photo)
+            self.__play_button.image = photo
+            return
+        self.action(name='PLAY')
+        self.change_playing_status()
+        photo = PhotoImage(file="resources/stop.png")
+        self.__play_button.configure(image=photo)
+        self.__play_button.image = photo
+
+    def change_playing_status(self):
+        self.__is_playing = not self.__is_playing
