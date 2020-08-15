@@ -7,11 +7,14 @@ class Matrix():
 
     def __init__(self, size):
         self.__size = size
-        self.__matrix = self.create_empty_matrix()
+        self.__matrix = self.__create_empty_matrix()
 
-    def create_empty_matrix(self):
-        size_with_borer = self.get_size_with_border()
+    def __create_empty_matrix(self):
+        size_with_borer = self.__get_size_with_border()
         return np.zeros((size_with_borer, size_with_borer), dtype=int)
+
+    def __get_size_with_border(self):
+        return self.__size + self.BORDER
 
     def get_matrix(self):
         limit = self.__size + 1
@@ -23,14 +26,14 @@ class Matrix():
         cell = self.__matrix[showable_cell_x][showable_cell_y]
         self.__matrix[showable_cell_x][showable_cell_y] = 1 if cell == 0 else 0
 
-    def get_size_with_border(self):
-        return self.__size + self.BORDER
+    def get_alive_cells_count(self):
+        return np.count_nonzero(self.__matrix)
 
     def next_genetration(self):
-        temp_matrix = self.create_empty_matrix()
+        temp_matrix = self.__create_empty_matrix()
         for x in range(1, self.__size + 1):
             for y in range(1, self.__size + 1):
-                count_neighborhood = self.count_neighborhood(x, y)
+                count_neighborhood = self.__count_neighborhood(x, y)
                 if (self.__matrix[x][y] == 0) and (count_neighborhood == 3):
                     temp_matrix[x][y] = 1
                 elif self.__matrix[x][y] == 1 and (count_neighborhood == 3 or count_neighborhood == 2):
@@ -39,7 +42,7 @@ class Matrix():
                     temp_matrix[x][y] = 0
         self.__matrix = temp_matrix
 
-    def count_neighborhood(self, x, y):
+    def __count_neighborhood(self, x, y):
         count = 0
         count += self.__matrix[x-1][y-1]
         count += self.__matrix[x][y-1]
@@ -50,6 +53,3 @@ class Matrix():
         count += self.__matrix[x][y+1]
         count += self.__matrix[x+1][y+1]
         return count
-
-    def get_alive_cells_count(self):
-        return np.count_nonzero(self.__matrix)

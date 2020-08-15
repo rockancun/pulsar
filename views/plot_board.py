@@ -1,9 +1,7 @@
 import tkinter
 from tkinter import Canvas
 from matplotlib.figure import Figure
-from matplotlib.backends.backend_tkagg import (
-    FigureCanvasTkAgg, NavigationToolbar2Tk)
-import matplotlib.cm as cm
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np
 
 
