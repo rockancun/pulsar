@@ -28,7 +28,7 @@ class ConwayFrame(Frame):
     def create_canvas_frame(self):
         canvas_frame = Frame(self, bg="#0E1621")
 
-        self.__board = Board(canvas_frame, bg="red")
+        self.__board = Board(canvas_frame, bg="#0E1621")
         self.__board.register_touch_cell_observer(self.touch_event_hadler)
         self.__board.place(relx=0.5, rely=0.5, anchor=CENTER)
         self.__board.pack()
@@ -50,11 +50,15 @@ class ConwayFrame(Frame):
 
         center_frame = Frame(info_frame, bg="#17212B")
 
+        self.__generation_text = StringVar()
+        self.__generation_text.set("Generacion: 0")
+
         generation_label = Label(
             center_frame,
             bg="#17212B",
             fg="white",
-            text='Generation:')
+            text='Generation:',
+            textvariable=self.__generation_text)
 
         self.__cell_alive_count_text = StringVar()
         self.__cell_alive_count_text.set('Alive cells: 0')
@@ -206,3 +210,6 @@ class ConwayFrame(Frame):
 
     def change_playing_status(self):
         self.__is_playing = not self.__is_playing
+
+    def set_generation(self, generation):
+        self.__generation_text.set(f"Generacion: {generation}")

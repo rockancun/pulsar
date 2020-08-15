@@ -7,6 +7,6 @@ from tkinter import Tk
 tk = Tk()
 tk.title('Pulsar - Game of Life')
 view = ConwayFrame(tk)
-model = Matrix(100)
+model = Matrix(50)
 controller = Controller(view, model)
 tk.mainloop()
