@@ -2,7 +2,7 @@ from tkinter import Frame
 from tkinter import Label
 from tkinter import Button
 from tkinter import PhotoImage
-from views.board import Board
+from views.plot_board import Board
 from tkinter.constants import BOTH, BOTTOM, X, LEFT, CENTER, TRUE
 
 
